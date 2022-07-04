@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('address_2')->nullable();
             $table->string('kyc')->nullable();
             $table->string('image')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

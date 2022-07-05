@@ -81,11 +81,6 @@ class UsersController extends Controller
                 return $row->kyc ? $row->kyc : '';
             });
             $table->editColumn('image', function ($row) {
-            // dd($row->image);
-            $url= asset($row->image);
-            // return $url;
-            // return '<img src="'.$url.'" border="0" width="40" class="img-rounded" align="center" />';
-            // return '<img src=" '.$row->image.' "/>';
                 return $row->image ? $row->image : '';
             });
 
@@ -113,25 +108,6 @@ class UsersController extends Controller
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 
-
-        //KYC image
-        $file = $request->file('kyc');
-        $extension = $file->getClientOriginalExtension(); // you can also use file name
-        $fileName = time().'-'.$request->name.'.'.$extension;
-        $path = public_path().'/uploads/users/kyc';
-        $uplaod = $file->move($path,$fileName);
-        $user->kyc = '/uploads/users/kyc/'.$fileName;
-
-        //image
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension(); // you can also use file name
-        $fileName = time().'-'.$request->name.'.'.$extension;
-        $path = public_path().'/uploads/users/image';
-        $uplaod = $file->move($path,$fileName);
-        $user->image = '/uploads/users/image/'.$fileName;
-
-        $user->save();
-
         return redirect()->route('admin.users.index');
     }
 
@@ -148,63 +124,8 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-
-        if($request->image != '' || $request->kyc != ''){        
-            //image code start
-            if($request->image != ''){
-                //code for remove old file
-                if($user->image != ''  && $user->image != null){
-                    $file_old = public_path().$user->image;
-                    //  dd($file_old);
-                    unlink($file_old);
-                }
-                //upload new file
-                $file = $request->file('image');
-                $extension = $file->getClientOriginalExtension(); // you can also use file name
-                $fileName = time().'-'.$request->name.'.'.$extension;
-                $path = public_path().'/uploads/users/image/';
-                $uplaod = $file->move($path,$fileName);
-                //for update in table
-                $fileindata = '/uploads/users/image/'.$fileName;
-                //image code end
-
-                $user->update($request->all());
-                $user->roles()->sync($request->input('roles', []));
-
-                $user->update(['image' => $fileindata]);
-
-            }
-
-            if($request->kyc != ''){
-                //kyc code start
-                //code for remove old file
-                if($user->kyc != ''  && $user->kyc != null){
-                    $file_old = public_path().$user->kyc;
-                    //  dd($file_old);
-                    unlink($file_old);
-                }
-                //upload new file
-                $file = $request->file('kyc');
-                $extension = $file->getClientOriginalExtension(); // you can also use file name
-                $fileName = time().'-'.$request->name.'.'.$extension;
-                $path = public_path().'/uploads/users/image/';
-                $uplaod = $file->move($path,$fileName);
-                //for update in table
-                $fileindata = '/uploads/users/image/'.$fileName;
-                //kyc code end
-
-                $user->update($request->all());
-                $user->roles()->sync($request->input('roles', []));
-
-                $user->update(['kyc' => $fileindata]);
-            }
-
-        }else{
-            $user->update($request->all());
-            $user->roles()->sync($request->input('roles', []));
-        }
-
-        
+        $user->update($request->all());
+        $user->roles()->sync($request->input('roles', []));
 
         return redirect()->route('admin.users.index');
     }

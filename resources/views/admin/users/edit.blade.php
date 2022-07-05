@@ -100,27 +100,20 @@
             </div>
             <div class="form-group">
                 <label class="required" for="kyc">{{ trans('cruds.user.fields.kyc') }}</label>
-                <div class="custom-file">
-                    <input class="custom-file-input {{ $errors->has('kyc') ? 'is-invalid' : '' }}" type="file" name="kyc" id="kyc" value="{{ old('kyc', $user->kyc) }}" accept="image/*">
-                    <label class="custom-file-label" for="image">{{ public_path().$user->kyc }}</label>
-                </div>
+                <input class="form-control {{ $errors->has('kyc') ? 'is-invalid' : '' }}" type="text" name="kyc" id="kyc" value="{{ old('kyc', $user->kyc) }}" required>
                 @if($errors->has('kyc'))
                     <span class="text-danger">{{ $errors->first('kyc') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.user.fields.kyc_helper') }}</span>
             </div>
-            <img id="kycdisplay" src="{{ $user->kyc }}" style="height: 80px; width: 120px; border: 1px solid black; margin-bottom: 40px;">
-
-
             <div class="form-group">
-                <label for="image">Image</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input {{ $errors->has('image') ? 'is-invalid' : '' }}" name="image" id="image" value="{{ old('image', $user->image) }}" accept="image/*">
-                    <label class="custom-file-label" for="image">{{ public_path().$user->image }}</label>
-                </div>
+                <label for="image">{{ trans('cruds.user.fields.image') }}</label>
+                <input class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" type="text" name="image" id="image" value="{{ old('image', $user->image) }}">
+                @if($errors->has('image'))
+                    <span class="text-danger">{{ $errors->first('image') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.image_helper') }}</span>
             </div>
-            <img id="imagedisplay" src="{{ $user->image }}" style="height: 80px; width: 120px; border: 1px solid black; margin-bottom: 40px;">
-
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
@@ -129,34 +122,7 @@
         </form>
     </div>
 </div>
+
+
+
 @endsection
-
-
-
-@section('script')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    jQuery(document).ready(function(){
-        jQuery("#image").change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    jQuery('#imagedisplay').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-
-
-        jQuery("#kyc").change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    jQuery('#kycdisplay').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    });
-</script>
-@endsecction

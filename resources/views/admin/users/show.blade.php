@@ -47,14 +47,14 @@
                             {{ $user->email }}
                         </td>
                     </tr>
-                    <!-- <tr>
+                    <tr>
                         <th>
                             {{ trans('cruds.user.fields.email_verified_at') }}
                         </th>
                         <td>
                             {{ $user->email_verified_at }}
                         </td>
-                    </tr> -->
+                    </tr>
                     <tr>
                         <th>
                             {{ trans('cruds.user.fields.roles') }}
@@ -110,7 +110,7 @@
                             {{ trans('cruds.user.fields.kyc') }}
                         </th>
                         <td>
-                            <img src="{{ $user->kyc }}" alt="" style="height: 120px; width: 160px; border: 1px solid black;"> 
+                            {{ $user->kyc }}
                         </td>
                     </tr>
                     <tr>
@@ -118,7 +118,7 @@
                             {{ trans('cruds.user.fields.image') }}
                         </th>
                         <td>
-                            <img src="{{ $user->image }}" alt="" style="height: 120px; width: 160px; border: 1px solid black;"> 
+                            {{ $user->image }}
                         </td>
                     </tr>
                 </tbody>

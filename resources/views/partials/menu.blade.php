@@ -272,7 +272,7 @@
                         </a>
                     </li>
                 @endcan
-                @can('basic_c_r_m_access')
+                {{-- @can('basic_c_r_m_access')
                     <li class="nav-item has-treeview {{ request()->is("admin/crm-statuses*") ? "menu-open" : "" }} {{ request()->is("admin/crm-customers*") ? "menu-open" : "" }} {{ request()->is("admin/crm-notes*") ? "menu-open" : "" }} {{ request()->is("admin/crm-documents*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-briefcase">
@@ -334,7 +334,7 @@
                             @endcan
                         </ul>
                     </li>
-                @endcan
+                @endcan --}}
                 @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
                         <li class="nav-item">

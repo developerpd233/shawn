@@ -34,11 +34,15 @@ class Product extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'manufacturer_id',
         'name',
         'description',
         'price',
         'meta',
+        'quantity',
+        'sku',
         'status',
+        'images',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -53,6 +57,11 @@ class Product extends Model implements HasMedia
     public function productReviews()
     {
         return $this->belongsToMany(Review::class);
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class, 'manufacturer_id');
     }
 
     public function categories()

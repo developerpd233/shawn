@@ -2,23 +2,27 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
-use App\Notifications\VerifyUserNotification;
-use Carbon\Carbon;
 use Hash;
-use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
+use \DateTimeInterface;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\VerifyUserNotification;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordNotification;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use SoftDeletes;
     use Notifiable;
     use HasFactory;
+    use HasApiTokens;
 
     public $table = 'users';
 
@@ -48,6 +52,8 @@ class User extends Authenticatable
         'address_2',
         'kyc',
         'image',
+        'provider',
+        'provider_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -96,11 +102,6 @@ class User extends Authenticatable
         }
     }
 
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPassword($token));
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class);
@@ -109,5 +110,19 @@ class User extends Authenticatable
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        if (isset(\Request::segments()[0]) && \Request::segments()[0] == 'password') {
+            // web
+            $this->notify(new ResetPassword($token));
+        } 
+        else 
+        {
+            // api
+            $url = env('APP_URL', 'https://spa.test').'/reset-password?token=' . $token;
+            $this->notify(new ResetPasswordNotification($url));
+        }
     }
 }

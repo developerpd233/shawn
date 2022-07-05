@@ -24,28 +24,39 @@ class UpdateProductRequest extends FormRequest
             'price' => [
                 'required',
             ],
-            'categories.*' => [
-                'integer',
+            // 'categories.*' => [
+            //     'integer',
+            // ],
+            // 'categories' => [
+            //     'array',
+            // ],
+            // 'tags.*' => [
+            //     'integer',
+            // ],
+            // 'tags' => [
+            //     'array',
+            // ],
+            // 'photos' => [
+            //     'array',
+            // ],
+            'manufacturer_id' => [
+                'required',
+                'integer'
             ],
-            'categories' => [
-                'array',
-            ],
-            'tags.*' => [
-                'integer',
-            ],
-            'tags' => [
-                'array',
-            ],
-            'photos' => [
-                'array',
-            ],
+            // 'keys' => [
+            //     'array',
+            // ],
+            // 'values' => [
+            //     'array',
+            // ],
             'meta' => [
-                'string',
+                'array',
                 'nullable',
             ],
             'status' => [
                 'required',
             ],
         ];
+
     }
 }

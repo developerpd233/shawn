@@ -34,7 +34,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="categories">{{ trans('cruds.product.fields.category') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -65,7 +65,7 @@
                     <span class="text-danger">{{ $errors->first('tags') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.tag_helper') }}</span>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="photos">{{ trans('cruds.product.fields.photos') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('photos') ? 'is-invalid' : '' }}" id="photos-dropzone">

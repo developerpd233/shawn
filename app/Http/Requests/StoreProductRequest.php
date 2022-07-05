@@ -28,9 +28,11 @@ class StoreProductRequest extends FormRequest
                 'integer',
             ],
             'categories' => [
+                'nullable',
                 'array',
             ],
             'tags.*' => [
+                'nullable',
                 'integer',
             ],
             'tags' => [

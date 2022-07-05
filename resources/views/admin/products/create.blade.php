@@ -34,6 +34,22 @@
                 <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="manufacture">Manufacture</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('manufacture') ? 'is-invalid' : '' }}" name="manufacture[]" id="manufacture" multiple>
+                    @foreach($categories as $id => $category)
+                        <option value="{{ $id }}" {{ in_array($id, old('manufacture', [])) ? 'selected' : '' }}>{{ $category }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('manufacture'))
+                    <span class="text-danger">{{ $errors->first('manufacture') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.manufacture_helper') }}</span>
+            </div>
+            <!-- <div class="form-group">
                 <label for="categories">{{ trans('cruds.product.fields.category') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -48,8 +64,8 @@
                     <span class="text-danger">{{ $errors->first('categories') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.category_helper') }}</span>
-            </div>
-            <div class="form-group">
+            </div> -->
+            <!-- <div class="form-group">
                 <label for="tags">{{ trans('cruds.product.fields.tag') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -64,7 +80,7 @@
                     <span class="text-danger">{{ $errors->first('tags') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.tag_helper') }}</span>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="photos">{{ trans('cruds.product.fields.photos') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('photos') ? 'is-invalid' : '' }}" id="photos-dropzone">

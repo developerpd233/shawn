@@ -137,13 +137,10 @@
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
           return entry.id
       });
-
       if (ids.length === 0) {
         alert('{{ trans('global.datatables.zero_selected') }}')
-
         return
       }
-
       if (confirm('{{ trans('global.areYouSure') }}')) {
         $.ajax({
           headers: {'x-csrf-token': _token},
@@ -156,7 +153,6 @@
   }
   dtButtons.push(deleteButton)
 @endcan
-
   let dtOverrideGlobals = {
     buttons: dtButtons,
     processing: true,
@@ -195,12 +191,10 @@ let visibleColumnsIndexes = null;
 $('.datatable thead').on('input', '.search', function () {
       let strict = $(this).attr('strict') || false
       let value = strict && this.value ? "^" + this.value + "$" : this.value
-
       let index = $(this).parent().index()
       if (visibleColumnsIndexes !== null) {
         index = visibleColumnsIndexes[index]
       }
-
       table
         .column(index)
         .search(value, strict)
@@ -213,6 +207,5 @@ table.on('column-visibility.dt', function(e, settings, column, state) {
       });
   })
 });
-
 </script>
 @endsection

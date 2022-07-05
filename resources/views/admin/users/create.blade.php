@@ -99,7 +99,10 @@
             </div>
             <div class="form-group">
                 <label class="required" for="kyc">{{ trans('cruds.user.fields.kyc') }}</label>
-                <input class="form-control {{ $errors->has('kyc') ? 'is-invalid' : '' }}" type="text" name="kyc" id="kyc" value="{{ old('kyc', '') }}" required>
+                <div class="custom-file">
+                    <input class="custom-file-input {{ $errors->has('kyc') ? 'is-invalid' : '' }}" type="file" name="kyc" id="kyc" value="{{ old('kyc', '') }}" accept="image/jpeg,image/gif,image/png,application/pdf" required>
+                    <label class="custom-file-label" for="image">KYC</label>
+                </div>
                 @if($errors->has('kyc'))
                     <span class="text-danger">{{ $errors->first('kyc') }}</span>
                 @endif
@@ -107,7 +110,10 @@
             </div>
             <div class="form-group">
                 <label for="image">{{ trans('cruds.user.fields.image') }}</label>
-                <input class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" type="text" name="image" id="image" value="{{ old('image', '') }}">
+                <div class="custom-file">
+                    <input class="custom-file-input {{ $errors->has('image') ? 'is-invalid' : '' }}" type="file" name="image" id="image" value="{{ old('image', '') }}" accept="image/jpeg,image/gif,image/png">
+                    <label class="custom-file-label" for="image">Image</label>
+                </div>
                 @if($errors->has('image'))
                     <span class="text-danger">{{ $errors->first('image') }}</span>
                 @endif

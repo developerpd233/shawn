@@ -66,13 +66,12 @@ class StoreUserRequest extends FormRequest
                 'nullable',
             ],
             'kyc' => [
-                'string',
+                'file',
                 'required',
             ],
             'image' => [
-                'string',
-                'max:255',
-                'nullable',
+                'file',
+                'required',
             ],
         ];
     }
